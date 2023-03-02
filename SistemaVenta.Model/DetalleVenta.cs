@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SistemaVenta.Model;
 
-namespace SistemaVenta.Model;
-
-public partial class DetalleVenta
+public sealed class DetalleVenta
 {
     public int IdDetalleVenta { get; set; }
 
@@ -17,7 +14,7 @@ public partial class DetalleVenta
 
     public decimal? Total { get; set; }
 
-    public virtual Producto? IdProductoNavigation { get; set; }
+    public Producto? IdProductoNavigation { get; set; }
 
-    public virtual Venta? IdVentaNavigation { get; set; }
+    public Venta? IdVentaNavigation { get; set; }
 }

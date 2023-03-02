@@ -32,21 +32,15 @@ namespace SistemaVenta.BLL.Servicios
             var tbMenuRol = await _menuRolRepositorio.GetAllAsync();
             var tbMenu = await _menuRepositorio.GetAllAsync();
             //
-            try
             {
-                IQueryable<Menu> tbResultado = (from u in tbUsuario
-                                                join mr in tbMenuRol on u.IdRol equals mr.IdRol
-                                                join m in tbMenu on mr.IdMenu equals m.IdMenu
-                                                select m).AsQueryable();
+                var tbResultado = (from u in tbUsuario
+                    join mr in tbMenuRol on u.IdRol equals mr.IdRol
+                    join m in tbMenu on mr.IdMenu equals m.IdMenu
+                    select m).AsQueryable();
                 //
-                var listaMenus = tbResultado.ToListAsync();
+                var listaMenus = tbResultado.ToList();
                 return _mapper.Map<List<MenuDto>>(listaMenus);
             }
-            catch
-            {
-                throw;
-            }
-
         }
     }
 }

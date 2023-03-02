@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using SistemaVenta.BLL.Servicios.Contrato;
 using SistemaVenta.DAL.Repositorios.Contrato;
 using SistemaVenta.DTO;
@@ -20,15 +19,8 @@ namespace SistemaVenta.BLL.Servicios
 
         public async Task<List<RolDto>> Lista()
         {
-            try
-            {
-                var listaRoles = await _rolRepositorio.GetAllAsync();
-                return _mapper.Map<List<RolDto>>(listaRoles.ToList());
-            }
-            catch
-            {
-                throw;
-            }
+            var listaRoles = await _rolRepositorio.GetAllAsync();
+            return _mapper.Map<List<RolDto>>(listaRoles.ToList());
         }
     }
 }

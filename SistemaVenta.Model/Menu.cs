@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SistemaVenta.Model;
 
-namespace SistemaVenta.Model;
-
-public partial class Menu
+public sealed class Menu
 {
     public int IdMenu { get; set; }
 
@@ -13,5 +10,5 @@ public partial class Menu
 
     public string? Url { get; set; }
 
-    public virtual ICollection<MenuRol> MenuRols { get; } = new List<MenuRol>();
+    public IEnumerable<MenuRol> MenuRols { get; } = new List<MenuRol>();
 }

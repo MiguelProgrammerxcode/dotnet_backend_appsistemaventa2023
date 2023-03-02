@@ -59,23 +59,16 @@ namespace SistemaVenta.BLL.Servicios
 
         private async Task<Dictionary<string, int>> VentasUltimaSemana()
         {
-            try
-            {
-                var resultado = new Dictionary<string, int>();
-                var ventaQuery = await _ventaRepositorio.GetAllAsync();
-                //
-                if (!ventaQuery.Any()) return resultado;
-                var tablaVenta = RetornarVentas(ventaQuery, -7);
-                resultado = tablaVenta.GroupBy(v => v.FechaRegistro!.Value.Date).OrderBy(g => g.Key)
-                    .Select(dv => new { fecha = dv.Key.ToString("dd/mm/yyyy"), total = dv.Count() })
-                    .ToDictionary(keySelector: r => r.fecha, elementSelector: r => r.total);
+            var resultado = new Dictionary<string, int>();
+            var ventaQuery = await _ventaRepositorio.GetAllAsync();
+            //
+            if (!ventaQuery.Any()) return resultado;
+            var tablaVenta = RetornarVentas(ventaQuery, -7);
+            resultado = tablaVenta.GroupBy(v => v.FechaRegistro!.Value.Date).OrderBy(g => g.Key)
+                .Select(dv => new { fecha = dv.Key.ToString("dd/mm/yyyy"), total = dv.Count() })
+                .ToDictionary(keySelector: r => r.fecha, elementSelector: r => r.total);
 
-                return resultado;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return resultado;
         }
 
         public async Task<DashBoardDto> Resumen()

@@ -15,41 +15,41 @@ namespace SistemaVenta.DAL.Repositorios
 
         public async Task<Venta> RegistrarAsync(Venta modelo)
         {
-            Venta ventaGenerada = new Venta();
-            using var transaction = _dbventaContext.Database.BeginTransaction();
+            Venta ventaGenerada;
+            await using var transaction = await _dbventaContext.Database.BeginTransactionAsync();
             try
             {
-                foreach (DetalleVenta dv in modelo.DetalleVenta)
+                foreach (var dv in modelo.DetalleVenta)
                 {
-                    Producto productoEncontrado = _dbventaContext.Productos.Where(p => p.IdProducto == dv.IdProducto).First();
+                    var productoEncontrado = _dbventaContext.Productos!.First(p => p.IdProducto == dv.IdProducto);
                     productoEncontrado.Stock -= dv.Cantidad;
-                    _dbventaContext.Productos.Update(productoEncontrado);
+                    _dbventaContext.Productos!.Update(productoEncontrado);
                 }
                 await _dbventaContext.SaveChangesAsync();
 
-                NumeroDocumento correlativo = _dbventaContext.NumeroDocumentos.First();
+                var correlativo = _dbventaContext.NumeroDocumentos!.First();
                 correlativo.UltimoNumero++;
                 correlativo.FechaRegistro = DateTime.Now;
-                _dbventaContext.NumeroDocumentos.Update(correlativo);
+                _dbventaContext.NumeroDocumentos!.Update(correlativo);
                 await _dbventaContext.SaveChangesAsync();
 
-                int cantidadDigitos = 4;
-                string ceros = string.Concat(Enumerable.Repeat("0", cantidadDigitos));
-                string numeroVenta = ceros + correlativo.UltimoNumero.ToString();
+                const int cantidadDigitos = 4;
+                var ceros = string.Concat(Enumerable.Repeat("0", cantidadDigitos));
+                var numeroVenta = ceros + correlativo.UltimoNumero.ToString();
                 // 00001
                 numeroVenta = numeroVenta.Substring(numeroVenta.Length - cantidadDigitos, cantidadDigitos);
                 // 0001
                 modelo.NumeroDocumento = numeroVenta;
 
-                await _dbventaContext.Venta.AddAsync(modelo);
+                await _dbventaContext.Venta!.AddAsync(modelo);
                 await _dbventaContext.SaveChangesAsync();
 
                 ventaGenerada = modelo;
-                transaction.Commit();
+                await transaction.CommitAsync();
             }
             catch
             {
-                transaction.Rollback();
+                await transaction.RollbackAsync();
                 throw;
             }
 

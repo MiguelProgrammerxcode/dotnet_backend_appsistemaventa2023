@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SistemaVenta.Model;
 
-namespace SistemaVenta.Model;
-
-public partial class MenuRol
+public sealed class MenuRol
 {
     public int IdMenuRol { get; set; }
 
@@ -11,7 +8,7 @@ public partial class MenuRol
 
     public int? IdRol { get; set; }
 
-    public virtual Menu? IdMenuNavigation { get; set; }
+    public Menu? IdMenuNavigation { get; set; }
 
-    public virtual Rol? IdRolNavigation { get; set; }
+    public Rol? IdRolNavigation { get; set; }
 }

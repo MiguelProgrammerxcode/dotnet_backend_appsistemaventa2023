@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SistemaVenta.Model;
 
-namespace SistemaVenta.Model;
-
-public partial class Usuario
+public sealed class Usuario
 {
     public int IdUsuario { get; set; }
 
@@ -19,5 +16,5 @@ public partial class Usuario
 
     public DateTime? FechaRegistro { get; set; }
 
-    public virtual Rol? IdRolNavigation { get; set; }
+    public Rol? IdRolNavigation { get; set; }
 }

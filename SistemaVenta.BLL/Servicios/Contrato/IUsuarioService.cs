@@ -1,5 +1,4 @@
 ﻿using SistemaVenta.DTO;
-using System.Linq.Expressions;
 
 namespace SistemaVenta.BLL.Servicios.Contrato
 {

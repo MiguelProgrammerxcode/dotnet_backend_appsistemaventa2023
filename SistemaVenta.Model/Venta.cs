@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SistemaVenta.Model;
 
-namespace SistemaVenta.Model;
-
-public partial class Venta
+public sealed class Venta
 {
     public int IdVenta { get; set; }
 
@@ -15,5 +12,5 @@ public partial class Venta
 
     public DateTime? FechaRegistro { get; set; }
 
-    public virtual ICollection<DetalleVenta> DetalleVenta { get; } = new List<DetalleVenta>();
+    public ICollection<DetalleVenta> DetalleVenta { get; } = new List<DetalleVenta>();
 }

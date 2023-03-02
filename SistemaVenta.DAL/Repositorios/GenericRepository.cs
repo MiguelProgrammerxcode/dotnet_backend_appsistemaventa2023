@@ -16,70 +16,35 @@ namespace SistemaVenta.DAL.Repositorios
 
         public async Task<TModelo> CreateAsync(TModelo modelo)
         {
-            try
-            {
-                _dbContext.Set<TModelo>().Add(modelo);
-                await _dbContext.SaveChangesAsync();
-                return modelo;
-            }
-            catch
-            {
-                throw;
-            }
+            _dbContext.Set<TModelo>().Add(modelo);
+            await _dbContext.SaveChangesAsync();
+            return modelo;
         }
 
         public async Task<bool> DeleteAsync(TModelo modelo)
         {
-            try
-            {
-                _dbContext.Set<TModelo>().Remove(modelo);
-                await _dbContext.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                throw;
-            }
+            _dbContext.Set<TModelo>().Remove(modelo);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public async Task<IQueryable<TModelo>> GetAllAsync(Expression<Func<TModelo, bool>>? filtro = null)
+        public Task<IQueryable<TModelo>> GetAllAsync(Expression<Func<TModelo, bool>>? filtro = null)
         {
-            try
-            {
-                IQueryable<TModelo> queryModel = filtro == null ? _dbContext.Set<TModelo>() : _dbContext.Set<TModelo>().Where(filtro);
-                return queryModel;
-            }
-            catch
-            {
-                throw;
-            }
+            var queryModel = filtro == null ? _dbContext.Set<TModelo>() : _dbContext.Set<TModelo>().Where(filtro);
+            return Task.FromResult(queryModel);
         }
 
         public async Task<TModelo> GetAsync(Expression<Func<TModelo, bool>> filtro)
         {
-            try
-            {
-                TModelo model = await _dbContext.Set<TModelo>().FirstOrDefaultAsync(filtro);
-                return model!;
-            }
-            catch
-            {
-                throw;
-            }
+            var model = (await _dbContext.Set<TModelo>().FirstOrDefaultAsync(filtro))!;
+            return model;
         }
 
         public async Task<bool> UpdateAsync(TModelo modelo)
         {
-            try
-            {
-                _dbContext.Set<TModelo>().Update(modelo);
-                await _dbContext.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                throw;
-            }
+            _dbContext.Set<TModelo>().Update(modelo);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

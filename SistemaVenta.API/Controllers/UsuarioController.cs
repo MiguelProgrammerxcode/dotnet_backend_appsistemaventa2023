@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 using SistemaVenta.BLL.Servicios.Contrato;
 using SistemaVenta.DTO;
@@ -47,7 +46,7 @@ namespace SistemaVenta.API.Controllers
             try
             {
                 rsp.Status = true;
-                rsp.Value  = await _usuarioService.ValidarCredenciales(login!.Correo, login!.Clave);
+                rsp.Value  = await _usuarioService.ValidarCredenciales(login.Correo, login.Clave);
             }
             catch (Exception ex)
             {

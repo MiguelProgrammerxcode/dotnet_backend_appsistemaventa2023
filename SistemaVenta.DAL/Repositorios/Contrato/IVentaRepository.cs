@@ -6,6 +6,6 @@ namespace SistemaVenta.DAL.Repositorios.Contrato
 {
     public interface IVentaRepository : IGenericRepository<Venta>
     {
-        Task<Venta> RegistrarAsync(Venta Modelo);
+        Task<Venta> RegistrarAsync(Venta modelo);
     }
 }

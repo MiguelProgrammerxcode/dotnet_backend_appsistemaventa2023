@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SistemaVenta.Model;
 
-namespace SistemaVenta.Model;
-
-public partial class Rol
+public sealed class Rol
 {
     public int IdRol { get; set; }
 
@@ -11,7 +8,7 @@ public partial class Rol
 
     public DateTime? FechaRegistro { get; set; }
 
-    public virtual ICollection<MenuRol> MenuRols { get; } = new List<MenuRol>();
+    public IEnumerable<MenuRol> MenuRols { get; } = new List<MenuRol>();
 
-    public virtual ICollection<Usuario> Usuarios { get; } = new List<Usuario>();
+    public IEnumerable<Usuario> Usuarios { get; } = new List<Usuario>();
 }

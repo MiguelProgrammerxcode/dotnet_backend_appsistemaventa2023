@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace SistemaVenta.Model;
 
-namespace SistemaVenta.Model;
-
-public partial class Producto
+public sealed class Producto
 {
     public int IdProducto { get; set; }
 
@@ -19,7 +16,7 @@ public partial class Producto
 
     public DateTime? FechaRegistro { get; set; }
 
-    public virtual ICollection<DetalleVenta> DetalleVenta { get; } = new List<DetalleVenta>();
+    public IEnumerable<DetalleVenta> DetalleVenta { get; } = new List<DetalleVenta>();
 
-    public virtual Categoria? IdCategoriaNavigation { get; set; }
+    public Categoria? IdCategoriaNavigation { get; set; }
 }
